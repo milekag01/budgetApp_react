@@ -25,6 +25,7 @@ const setCount = ({count}) => ({
 //Reducers
 // 1. reducers are pure functions   
 // 2. never change state or action instead we mutate the state i.e. change the value but not adding a new property to it
+
 const countReducer = (state={count: 0},action) => {
     switch(action.type){
         case 'INCREMENT':
