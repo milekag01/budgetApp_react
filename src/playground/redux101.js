@@ -1,6 +1,31 @@
 import { createStore } from 'redux';
 
-const store = createStore((state={count: 0},action) => {
+// Action generators: functions that returns action object
+
+const incrementCount = ({incrementBy = 1} = {}) => ({
+    type: 'INCREMENT',
+    incrementBy: incrementBy
+});
+
+const decrementCount = ({decrementBy = 1} = {}) => ({
+    type: 'DECREMENT',
+    decrementBy: decrementBy
+});
+
+const resetCount = () => ({
+    type: 'RESET',
+});
+
+const setCount = ({count}) => ({
+    type: 'SET',
+    count: count
+});
+
+//////////////////////////////////////////////////////////
+//Reducers
+// 1. reducers are pure functions   
+// 2. never change state or action instead we mutate the state i.e. change the value but not adding a new property to it
+const countReducer = (state={count: 0},action) => {
     switch(action.type){
         case 'INCREMENT':
             const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
@@ -23,7 +48,10 @@ const store = createStore((state={count: 0},action) => {
         default: 
             return state;
     }
-});
+}
+
+//Store
+const store = createStore(countReducer);
 
 // const store1 = createStore((initialState) => {
 //     this is arrow function as 1st argument of createStore 
@@ -35,30 +63,12 @@ const unsubscribe = store.subscribe(() => {
     console.log(store.getState());
 })
 
-
-
 // Actions - it is an object that gets sent to the store
 // these help us to update our state on the basis of type we are sending to store via store.dispatch()
 
-store.dispatch({
-    type: 'INCREMENT',
-    incrementBy: 5
-});
-
-store.dispatch({
-    type: 'INCREMENT'
-});
-store.dispatch({
-    type: 'RESET'
-});
-store.dispatch({
-    type: 'DECREMENT'
-});
-store.dispatch({
-    type: 'DECREMENT',
-    decrementBy: 3
-});
-store.dispatch({
-    type: 'SET',
-    count: 101
-})
+store.dispatch(incrementCount({incrementBy: 5}));
+store.dispatch(incrementCount());
+store.dispatch(resetCount());
+store.dispatch(decrementCount());
+store.dispatch(decrementCount({decrementBy: 3}));
+store.dispatch(setCount({count: 101}));
