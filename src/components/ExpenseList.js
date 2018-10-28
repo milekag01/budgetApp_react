@@ -11,12 +11,15 @@ const ExpenseList = (props) => (
 
 //connect allows us to access the store passed by provider to the components
 // return values can of this can be accessed as props in the components above
-const connectedExpenseList = connect((state) => {
+//now we will break this function to 2 parts : 1. mapStateToProps function and 2. export default
+const mapStateToProps = (state) => {
     return {
         expenses: state.expenses,
         filters: state.filters
     }
-})(ExpenseList);
+}
+
+const connectedExpenseList = connect(mapStateToProps)(ExpenseList);
 
 export default connectedExpenseList;
 
