@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ExpenseListItem from './ExpenseListItem';
+import selectExpenses from '../selectors/expenses';
 
 const ExpenseList = (props) => (
     <div>
         <h1>Expense List</h1>
-        {props.expenses.length}
-        {props.filters.text}
+        {props.expenses.map((expense) => {
+            return <ExpenseListItem key={expense.id} {...expense} />     //passing expense using spread operator so that data can be accessed using destructuring
+        })}
     </div>
 );
 
@@ -14,8 +17,7 @@ const ExpenseList = (props) => (
 //now we will break this function to 2 parts : 1. mapStateToProps function and 2. export default
 const mapStateToProps = (state) => {
     return {
-        expenses: state.expenses,
-        filters: state.filters
+        expenses: selectExpenses(state.expenses,state.filters)      //We have applied our filters by importing getVisibleItems as selectExpenses and using it 
     }
 }
 
