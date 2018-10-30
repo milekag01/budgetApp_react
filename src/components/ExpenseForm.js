@@ -7,12 +7,17 @@ const now = moment();
 console.log(now.format());
 
 export default class ExpenseForm extends React.Component {
-    state = {
-        description: '',
-        note: '',
-        amount: '',
-        createdAt: moment(),
-        calendarFocused: false
+    constructor(props){
+        super(props);
+
+        this.state = {
+            description: props.expense ? props.expense.description : '',
+            note: props.expense ? props.expense.note : '',
+            amount: props.expense ? (props.expense.amount / 100).toString() : '',
+            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+            calendarFocused: false,
+            error: ''
+        }
     }
 
     onDescriptionChange = (event) => {
@@ -30,7 +35,9 @@ export default class ExpenseForm extends React.Component {
         }
     }
     onDateChange = (createdAt) => {     //doubt
-        this.setState(() => ({createdAt}));
+        if(createdAt){
+            this.setState(() => ({createdAt}));
+        }
     };
     onFocusChange = ({focused}) => {
         this.setState(() => ({calendarFocused: focused}));
