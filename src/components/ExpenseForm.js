@@ -35,9 +35,7 @@ export default class ExpenseForm extends React.Component {
         }
     }
     onDateChange = (createdAt) => {     //doubt
-        if(createdAt){
             this.setState(() => ({createdAt}));
-        }
     };
     onFocusChange = ({focused}) => {
         this.setState(() => ({calendarFocused: focused}));
@@ -53,7 +51,7 @@ export default class ExpenseForm extends React.Component {
                 this.props.onSubmit({
                     description: this.state.description,
                     amount: parseFloat(this.state.amount, 10) * 100,
-                    createdAt: this.state.createdAt.valueOf(),      //valueOf() is from momentjs
+                    createdAt: this.state.createdAt.valueOf(),      
                     note: this.state.note
                 })
         }
