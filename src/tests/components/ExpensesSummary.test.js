@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { ExpensesSummary } from '../../components/ExpensesSummary';
 
 test('should render ExpenseList summary with 1 expense',() => {
-    const wrapper = shallow(<ExpensesSummary expenseCoount = {1} expensesTotal = {195} />);
+    const wrapper = shallow(<ExpensesSummary expenseCount = {1} expensesTotal = {195} />);
     expect(wrapper).toMatchSnapshot();
 });
 
